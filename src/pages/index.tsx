@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { SignInButton, useUser, SignOutButton } from "@clerk/nextjs";
-import { api, RouterOutputs } from "~/utils/api";
+import { api } from "~/utils/api";
+import type { RouterOutputs } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -51,6 +51,7 @@ type PostWithUser = RouterOutputs["posts"]["getAll"][number];
 // Creating the Post View Component
 const PostViewComponent = (props: PostWithUser) => {
   const { post, author } = props;
+  if (!author) return null;
   return (
     <div
       key={post.id}
