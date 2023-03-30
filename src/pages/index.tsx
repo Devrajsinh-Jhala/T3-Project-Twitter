@@ -14,6 +14,7 @@ dayjs.extend(relativeTime);
 // Creating Post Wizard component
 const CreatePostWizard = () => {
   const { user } = useUser();
+  const [input, setInput] = useState("");
   if (!user) return null;
 
   const ctx = api.useContext();
@@ -24,7 +25,6 @@ const CreatePostWizard = () => {
       void ctx.posts.getAll.invalidate();
     },
   });
-  const [input, setInput] = useState("");
 
   return (
     <div className="flex w-full gap-4">
@@ -64,7 +64,7 @@ const PostViewComponent = (props: PostWithUser) => {
       />
       <div className="flex flex-col">
         <div className="flex gap-3 text-slate-400 ">
-          <span>{`@${author?.firstName}`}</span>
+          <span>{`@${author?.firstName ? author.firstName : "Guest"}`}</span>
           <span>{`${dayjs(post.createdAt).fromNow()}`}</span>
         </div>
         <p>{post.content}</p>
